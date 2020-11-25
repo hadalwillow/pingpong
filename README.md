@@ -33,6 +33,13 @@ After finishing your work, please send pull request for review.
 - Make sure players or ball uses app.width and app.height values dynamicly, hard coded values will be rejected.
 - Make sure you have a base PR and break up the code into meaningful smaller PRs: https://medium.com/@hugooodias/the-anatomy-of-a-perfect-pull-request-567382bb6067
 
+## Fork
+- Fork the repository as a private repo.
+- Invite collaborators demiculus & goktugyil to the repo.
+- Create a base PR merging from your base branch to your master branch.
+- Create the other PRs merging from your feature branches to your base branch.
+- You can merge any branches you want. When you're done send your point of contact the list of PRs to review.
+
 ## Common Coding Mistakes
 - Avoid using while loop.
 - Long PR, an ideal PR size is between 5-10 commits.
