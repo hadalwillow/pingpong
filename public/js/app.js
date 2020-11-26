@@ -1,68 +1,74 @@
 var app = {
-	//initial variables
-	canvas  : null,
-	context : null,
+    //initial variables
+    canvas: null,
+    context: null,
 
-	//resizing
-	width   : 800,
-	height  : 400,
+    //resizing
+    width: 800,
+    height: 400,
 
-	//nodes
-	nodes   : [],
+    //nodes
+    nodes: [],
 
-	//timing
-	timestamp  : 0,
-	now        : 0,
-	lastUpdate : 0,
+    //timing
+    timestamp: 0,
+    now: 0,
+    lastUpdate: 0,
 
-	init : function(){
-		this.canvas  = document.getElementById('canvas');
-		this.context = this.canvas.getContext('2d');
+    init: function () {
+        this.canvas = document.getElementById('canvas');
+        // Make canvas correct size
+        this.canvas.width = this.width;
+        this.canvas.height = this.height;
 
-		this.render();
-		this.onInit();
-	},
-	render : function(){
-		this.clear();
-		this.update();
+        this.context = this.canvas.getContext('2d');
 
-		window.requestAnimationFrame(this.render.bind(this));
-	},
-	clear  : function(){
-		this.context.clearRect(0, 0, this.width, this.height);
-	},
-	update : function(){
-	    var dt = Date.now() - this.lastUpdate;
+        this.render();
+        this.onInit();
+    },
+    render: function () {
+        this.clear();
+        this.update();
 
-		this.onUpdate(dt);
+        window.requestAnimationFrame(this.render.bind(this));
+    },
+    clear: function () {
+        this.context.clearRect(0, 0, this.width, this.height);
+    },
+    update: function () {
+        var dt = Date.now() - this.lastUpdate;
 
-		for(var index in this.nodes){
-			var node = this.nodes[index];
+        this.onUpdate(dt);
 
-			this.context.fillStyle = node.color;
-			this.context.fillRect(node.x, node.y, node.width, node.height);
-		}
+        for (var index in this.nodes) {
+            var node = this.nodes[index];
 
-		this.lastUpdate = Date.now();
-		this.timestamp+=dt;
-	},
-	getNode : function(id){
-		for(var index in this.nodes){
-			var node = this.nodes[index];
+            this.context.fillStyle = node.color;
+            this.context.fillRect(node.x, node.y, node.width, node.height);
+        }
 
-			if(node.id == id){
-				return node;
-			}
-		}
+        this.lastUpdate = Date.now();
+        this.timestamp += dt;
+    },
+    getNode: function (id) {
+        for (var index in this.nodes) {
+            var node = this.nodes[index];
 
-		return { x : null, y : null, width : null, height : null };
-	},
+            if (node.id === id) {
+                return node;
+            }
+        }
 
-	//events
-	onInit   : function(){},
-	onUpdate : function(){}
+        return {x: null, y: null, width: null, height: null};
+    },
+
+    //events
+    onInit: function () {
+    },
+    onUpdate: function () {
+    }
 };
 
-window.onload = function(){
-	app.init();
+window.onload = function () {
+    app.init();
 };
