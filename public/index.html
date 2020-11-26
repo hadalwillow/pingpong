@@ -14,67 +14,95 @@
 <canvas id="canvas" width="800" height="400"></canvas>
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript">
-    const game_state = {
-        'left_paddle_y': 0,
-        'right_paddle_y': 0,
-        'ball_position': [0, 0],
-        'keys': {}
-    }
+	const game_state = {
+		'left_paddle_y': 0,
+		'right_paddle_y': 0,
+		'ball_position': [0, 0],
+		'ball_speed': [0.5, 0.1],
+		'keys': {}
+	}
 
-    const paddle_speed = 1;
+	const paddle_speed = 1;
+	const ball_speed = 1;
 
-    //Set app to correct width;
-    app.width = window.innerWidth;
-    app.height = window.innerHeight;
+	//Set app to correct width;
+	app.width = window.innerWidth;
+	app.height = window.innerHeight;
 
-    app.onInit = function () {
-        this.nodes.push(
-            {
-                id: 'paddle-left',
-                x: 50,
-                y: 0,
-                width: 10,
-                height: 100
-            }
-        )
+	app.onInit = function () {
+		this.nodes.push(
+			{
+				id: 'paddle-left',
+				x: 50,
+				y: 0,
+				width: 10,
+				height: 100
+			}
+		);
 
-        this.nodes.push(
-            {
-                id: 'paddle-right',
-                x: app.width - 60, //50 + 10 to compensate for width of paddle
-                y: 0,
-                width: 10,
-                height: 100
-            }
-        )
-    };
+		this.nodes.push(
+			{
+				id: 'paddle-right',
+				x: app.width - 60, //50 + 10 to compensate for width of paddle
+				y: 0,
+				width: 10,
+				height: 100
+			}
+		);
 
-    app.onUpdate = function (time) {
-        if (game_state.keys['ArrowDown']) {
-            game_state.right_paddle_y += time * paddle_speed;
-        }
-        if (game_state.keys['ArrowUp']) {
-            game_state.right_paddle_y -= time * paddle_speed;
-        }
-        if (game_state.keys['KeyS']) {
-            game_state.left_paddle_y += time * paddle_speed;
-        }
-        if (game_state.keys['KeyW']) {
-            game_state.left_paddle_y -= time * paddle_speed;
-        }
+		this.nodes.push(
+			{
+				'id': 'ball',
+				x: app.width / 2 - 10,
+				y: app.height / 2 - 10,
+				width: 20,
+				height: 20
+			}
+		);
 
-        this.getNode('paddle-left').y = game_state.left_paddle_y;
-        this.getNode('paddle-right').y = game_state.right_paddle_y;
-    };
+		game_state.ball_position = [app.width / 2, app.height / 2];
+	};
 
-    document.addEventListener('keydown', (ev) => {
-        game_state.keys[ev.code] = true;
+	app.onUpdate = function (time) {
+		if (game_state.keys['ArrowDown']) {
+			game_state.right_paddle_y += time * paddle_speed;
+		}
+		if (game_state.keys['ArrowUp']) {
+			game_state.right_paddle_y -= time * paddle_speed;
+		}
+		if (game_state.keys['KeyS']) {
+			game_state.left_paddle_y += time * paddle_speed;
+		}
+		if (game_state.keys['KeyW']) {
+			game_state.left_paddle_y -= time * paddle_speed;
+		}
 
-    });
-    document.addEventListener('keyup', (ev) => {
-        game_state.keys[ev.code] = false;
+		game_state.ball_position[0] += game_state.ball_speed[0] * time * ball_speed;
+		game_state.ball_position[1] += game_state.ball_speed[1] * time * ball_speed;
 
-    })
+		if (game_state.ball_position[0] < 10 ||
+			game_state.ball_position[0] + 10 > app.width
+		) {
+			game_state.ball_speed[0] *= -1;
+		}
+		if (game_state.ball_position[1] < 10 || game_state.ball_position[1] > app.height - 10) {
+			game_state.ball_speed[1] *= -1;
+		}
+
+		this.getNode('paddle-left').y = game_state.left_paddle_y;
+		this.getNode('paddle-right').y = game_state.right_paddle_y;
+		this.getNode('ball').x = game_state.ball_position[0] - 10;
+		this.getNode('ball').y = game_state.ball_position[1] - 10;
+	};
+
+	document.addEventListener('keydown', (ev) => {
+		game_state.keys[ev.code] = true;
+
+	});
+	document.addEventListener('keyup', (ev) => {
+		game_state.keys[ev.code] = false;
+
+	})
 </script>
 </body>
 </html>
