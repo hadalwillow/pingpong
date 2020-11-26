@@ -1,10 +1,10 @@
-# Ping Pong Game
-Design a ping-pong game with a given template.
+# Colonist Test Game
+Implement a ping pong game according to the template.
 
 ## Template
-Template has 2 functions onInit and onUpdate. Please design your ping-pong game with only those two functions. Do not modify app.js.
+Template has `onInit` and `onUpdate`. Please design your ping-pong game with only those two functions. Do not modify app.js.
 
-Put your initalizing functions in onInit function, like key down and up bindings or players and ball.
+Put your initializing functions in `onInit`, like key down and up bindings or players and ball.
 
 You can use ```this.nodes.push(nodeProperties)``` to add nodes to canvas.
 You can also use ```this.getNode()``` to get node properties.
