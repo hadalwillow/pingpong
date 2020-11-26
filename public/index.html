@@ -67,7 +67,15 @@
 	};
 
 	function intersects_paddle(paddle_y, ball_y) {
-		return (ball_y >= paddle_y) && (ball_y <= paddle_y + paddle_height);
+		return (ball_y + 10 >= paddle_y) && (ball_y - 10 <= paddle_y + paddle_height);
+	}
+
+	function reset_ball() {
+		console.log(game_state.score_left + " - " + game_state.score_right);
+		game_state.ball_position = [app.width / 2, app.height / 2];
+		game_state.ball_position = [app.width / 2, app.height / 2];
+		game_state.ball_speed[0] = -game_state.ball_speed[0];
+		game_state.ball_speed[1] = (Math.random() * 3 - 1.5) / 10;
 	}
 
 	app.onUpdate = function (time) {
@@ -87,15 +95,18 @@
 		game_state.ball_position[0] += game_state.ball_speed[0] * time * ball_speed;
 		game_state.ball_position[1] += game_state.ball_speed[1] * time * ball_speed;
 
-		if ((game_state.ball_position[0] < 70 && intersects_paddle(game_state.left_paddle_y, game_state.ball_position[1])) ||
-			(game_state.ball_position[0] + 70 > app.width && intersects_paddle(game_state.right_paddle_y, game_state.ball_position[1]))) {
-			game_state.ball_speed[0] *= -1;
+		if (game_state.ball_position[0] > 60 && game_state.ball_position[0] < 70
+			&& intersects_paddle(game_state.left_paddle_y, game_state.ball_position[1])) {
+			game_state.ball_speed[0] = Math.abs(game_state.ball_speed[0]);
+		} else if (game_state.ball_position[0] + 60 < app.width && game_state.ball_position[0] + 70 > app.width
+			&& intersects_paddle(game_state.right_paddle_y, game_state.ball_position[1])) {
+			game_state.ball_speed[0] = -Math.abs(game_state.ball_speed[0]);
 		} else if (game_state.ball_position[0] < 10) {
 			game_state.score_right += 1;
-			game_state.ball_position = [app.width / 2, app.height / 2];
+			reset_ball();
 		} else if (game_state.ball_position[0] + 10 > app.width) {
 			game_state.score_left += 1;
-			game_state.ball_position = [app.width / 2, app.height / 2];
+			reset_ball();
 		}
 
 		if (game_state.ball_position[1] < 10 || game_state.ball_position[1] > app.height - 10) {
