@@ -21,7 +21,8 @@
 		'ball_speed': [-0.5, 0.1],
 		'keys': {},
 		'score_left': 0,
-		'score_right': 0
+		'score_right': 0,
+		'paused': false
 	}
 
 	const paddle_speed = 1;
@@ -79,6 +80,9 @@
 	}
 
 	app.onUpdate = function (time) {
+		if (game_state.paused) {
+			return;
+		}
 		if (game_state.keys['ArrowDown']) {
 			game_state.right_paddle_y += time * paddle_speed;
 		}
@@ -91,6 +95,7 @@
 		if (game_state.keys['KeyW']) {
 			game_state.left_paddle_y -= time * paddle_speed;
 		}
+
 
 		game_state.ball_position[0] += game_state.ball_speed[0] * time * ball_speed;
 		game_state.ball_position[1] += game_state.ball_speed[1] * time * ball_speed;
@@ -119,8 +124,15 @@
 		this.getNode('ball').y = game_state.ball_position[1] - 10;
 	};
 
+	app.toggle_pause = () => {
+		game_state.paused ^= true;
+	}
+
 	document.addEventListener('keydown', (ev) => {
 		game_state.keys[ev.code] = true;
+		if (ev.code === 'Space') {
+			app.toggle_pause();
+		}
 
 	});
 	document.addEventListener('keyup', (ev) => {
