@@ -13,8 +13,6 @@ You can find examples in index.html file in public folder.
 
 Please start server with ```node index.js```.
 
-After finishing your work, please send pull request for review.
-
 ## Todo
 - Make the game cover the whole browser
 - Add keyboard functionalities for both players, W and S for one player, Up and Down for another player.
@@ -31,17 +29,17 @@ After finishing your work, please send pull request for review.
 ## Notes
 - Make sure game has state functions like reset, start and pause. We should be able to trigger them with ```app.reset()``` or ```app.pause()```.
 - Make sure players or ball uses app.width and app.height values dynamicly, hard coded values will be rejected.
-- Make sure you have a base PR and break up the code into meaningful smaller PRs: https://medium.com/@hugooodias/the-anatomy-of-a-perfect-pull-request-567382bb6067
 
-## Fork
+## Before Starting
 - Fork the repository as a private repo.
+- Create a new branch and work on that branch.
 - Invite collaborators demiculus & goktugyil to the repo.
-- Create a base PR merging from your base branch to your master branch.
-- Create the other PRs merging from your feature branches to your base branch.
-- You can merge any branches you want. When you're done send your point of contact the list of PRs to review.
+
+## After Finishing
+- Create a PR merging from your branch to your master branch.
+- Add a very good description on what it is, make sure to include video showcasing.
+- Request reviews from demiculus & goktugyil.
 
 ## Common Coding Mistakes
 - Avoid using while loop.
-- Long PR, an ideal PR size is between 5-10 commits.
-- Use early breaks instead of if/else.
 - Break down your commits into the smallest commit that represents a cohesive feature that is in a build-able state.
