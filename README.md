@@ -31,19 +31,17 @@ Please start server with ```node index.js```.
 - Make sure players or ball uses app.width and app.height values dynamicly, hard coded values will be rejected.
 
 ## Before Starting
-- Download the code.
-- Initialize git repo.
-- Commit the current project as first commit.
-- Upload it to a private repository on github.
+- Import repository: https://prnt.sc/vs0ygy
+- All work should be done in your own private repository now.
 - Create a new branch and work on that branch.
 
 ## After Finishing
-- On github create a PR merging from your branch to your master branch.
+- On your repository create a PR merging your feature branch into your master branch.
 - Add a very good description on what it is, make sure to include video showcasing.
-- Invite collaborators demiculus & goktugyil to the repo.
-- Request reviews for the PR from demiculus & goktugyil.
-- Do not push commit or push anything to this repo. 
+- Invite collaborators `demiculus` & `goktugyil` to the repo.
+- Request reviews for the PR from `demiculus` & `goktugyil`.
+- Do not push commit or push anything to this repo (goktugyil/colonist-test). 
 
-## Common Coding Mistakes
-- Avoid using while loop.
+## Guidelines
 - Break down your commits into the smallest commit that represents a cohesive feature that is in a build-able state.
+- This is a good place to show off your architeture, clean code, modularity, extensibility knowledge.
