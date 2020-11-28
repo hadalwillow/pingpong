@@ -31,14 +31,17 @@ Please start server with ```node index.js```.
 - Make sure players or ball uses app.width and app.height values dynamicly, hard coded values will be rejected.
 
 ## Before Starting
-- Fork the repository as a private repo.
+- Download the code.
+- Initialize git repo.
+- Commit the current project as first commit.
+- Upload it to a private repository on github.
 - Create a new branch and work on that branch.
-- Invite collaborators demiculus & goktugyil to the repo.
 
 ## After Finishing
-- Create a PR merging from your branch to your master branch.
+- On github create a PR merging from your branch to your master branch.
 - Add a very good description on what it is, make sure to include video showcasing.
-- Request reviews from demiculus & goktugyil.
+- Invite collaborators demiculus & goktugyil to the repo.
+- Request reviews for the PR from demiculus & goktugyil.
 
 ## Common Coding Mistakes
 - Avoid using while loop.
