@@ -42,6 +42,7 @@ Please start server with ```node index.js```.
 - Add a very good description on what it is, make sure to include video showcasing.
 - Invite collaborators demiculus & goktugyil to the repo.
 - Request reviews for the PR from demiculus & goktugyil.
+- Do not push commit or push anything to this repo. 
 
 ## Common Coding Mistakes
 - Avoid using while loop.
