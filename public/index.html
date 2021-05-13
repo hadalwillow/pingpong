@@ -19,23 +19,24 @@
 	<script type="text/javascript">
 
 		app.onInit = function(){
-			this.nodes.push({
-				id : 'player2',
-				x  : app.width-app.width/40,
-				y  : 0,
-				width  : app.width/40,
-				height : app.height/3,
-				color  : 'red',
-				direction : 0
-			});
 
 			this.nodes.push({
 				id : 'player1',
 				x  : 0,
-				y  : 0,
+				y  : app.height/2-app.width/20,
 				width  : app.width/40,
 				height : app.height/3,
 				color  : 'white',
+				direction : 0
+			});
+
+			this.nodes.push({
+				id : 'player2',
+				x  : app.width-app.width/40,
+				y  : app.height/2-app.width/20,
+				width  : app.width/40,
+				height : app.height/3,
+				color  : 'green',
 				direction : 0
 			});
 
@@ -43,30 +44,25 @@
 				id:'ball',
   				x: app.width/2,
  				y: app.height/2,
-  				radius: 7,
 				width  : app.width/100,
 				height : app.height/50,
   				color: '#05EDFF'
 			});
 
-			let upArrowPressed = false;
-			let downArrowPressed = false;
-
-
-
-
 		};
 
 		app.onUpdate = function(time){
+
 			this.getNode('player1').y++;
 
-			if(Math.cos(this.timestamp / 100) > 0){
-				this.getNode('player2').direction = -1;
-			}else{
-				this.getNode('player2').direction = 1;
-			}
+if(Math.cos(this.timestamp / 200) > 0){
+	this.getNode('player2').direction = -1;
+}else{
+	this.getNode('player2').direction = 1;
+}
 
-			this.getNode('player2').x+=this.getNode('player2').direction;
+this.getNode('player2').x+=this.getNode('player2').direction;
+
 		};
 	</script>
 </body>
