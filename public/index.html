@@ -20,7 +20,7 @@
 
 		app.onInit = function(){
 			this.nodes.push({
-				id : 'red-box',
+				id : 'player2',
 				x  : app.width-app.width/40,
 				y  : 0,
 				width  : app.width/40,
@@ -30,7 +30,7 @@
 			});
 
 			this.nodes.push({
-				id : 'white-box',
+				id : 'player1',
 				x  : 0,
 				y  : 0,
 				width  : app.width/40,
@@ -58,15 +58,15 @@
 		};
 
 		app.onUpdate = function(time){
-			this.getNode('white-box').y++;
+			this.getNode('player1').y++;
 
 			if(Math.cos(this.timestamp / 100) > 0){
-				this.getNode('red-box').direction = -1;
+				this.getNode('player2').direction = -1;
 			}else{
-				this.getNode('red-box').direction = 1;
+				this.getNode('player2').direction = 1;
 			}
 
-			this.getNode('red-box').x+=this.getNode('red-box').direction;
+			this.getNode('player2').x+=this.getNode('player2').direction;
 		};
 	</script>
 </body>
