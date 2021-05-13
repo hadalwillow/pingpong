@@ -21,7 +21,7 @@
 		app.onInit = function(){
 			this.nodes.push({
 				id : 'red-box',
-				x  : app.width,
+				x  : app.width-app.width/40,
 				y  : 0,
 				width  : app.width/40,
 				height : app.height/3,
@@ -41,8 +41,8 @@
 
 			this.nodes.push ({
 				id:'ball',
-  				x: 10,
- 				y: 10,
+  				x: app.width/2,
+ 				y: app.height/2,
   				radius: 7,
 				width  : app.width/100,
 				height : app.height/50,
