@@ -28,7 +28,7 @@
                 height : app.height/3,
                 color  : 'white',
                 direction : 0,
-                velocity: 0.1
+                velocity: 0.01
             });
 
             this.nodes.push({
@@ -39,7 +39,7 @@
                 height : app.height/3,
                 color  : 'green',
                 direction : 0,
-                velocity: 0.1
+                velocity: 0.01
             });
 
             this.nodes.push ({
@@ -54,7 +54,6 @@
                 velocityY:5,
                 speed:5
             });
-
 
         };
 
@@ -124,6 +123,20 @@
                 
                 this.getNode("ball").speed += 0.1;
     }
+            
+        if( this.getNode("ball").x - this.getNode("ball").width < 0 ){
+            console.log("Point for Player 2!")
+            this.getNode('ball').x = app.width/2;
+            this.getNode('ball').y = app.height/2;
+            this.getNode('ball').velocityX = -this.getNode('ball').velocityX;
+            this.getNode('ball').speed = 7;
+        }else if( this.getNode('ball').x + this.getNode('ball').radius > app.width){
+            console.log("Point for Player 1!")
+            this.getNode('ball').x = app.width/2;
+            this.getNode('ball').y = app.height/2;
+            this.getNode('ball').velocityX = -this.getNode('ball').velocityX;
+            this.getNode('ball').speed = 7;
+        }
 
     };
     </script>
