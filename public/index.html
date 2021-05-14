@@ -55,6 +55,8 @@
                 speed:5
             });
 
+            var gameStart = true
+
         };
 
         
@@ -96,10 +98,10 @@
                 p.left = p.x;
                 p.right = p.x + p.width;
                 
-                b.top = b.y - b.radius;
-                b.bottom = b.y + b.radius;
-                b.left = b.x - b.radius;
-                b.right = b.x + b.radius;
+                b.top = b.y - b.height;
+                b.bottom = b.y + b.height;
+                b.left = b.x - b.width;
+                b.right = b.x + b.width;
     
                 return p.left < b.right && p.top < b.bottom && p.right > b.left && p.bottom > b.top;
             }
