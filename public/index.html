@@ -49,17 +49,20 @@
   				color: '#05EDFF'
 			});
 
-		};
+		}
+		app.canvas.addEventListener('click',function () {
+                console.log("hewwo?")
+            })
 
 		app.onUpdate = function(time){
-
-			this.getNode('player1').y++;
 
 if(Math.cos(this.timestamp / 200) > 0){
 	this.getNode('player2').direction = -1;
 }else{
 	this.getNode('player2').direction = 1;
 }
+
+	this.getNode('player1').y++;
 
 this.getNode('player2').x+=this.getNode('player2').direction;
 
