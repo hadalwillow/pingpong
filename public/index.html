@@ -72,7 +72,6 @@
                 width  : app.width/100,
                 height : app.height/50,
                 color: '#05EDFF',
-                radius: 10,
                 velocityX:5,
                 velocityY:5,
                 speed:5
@@ -82,6 +81,21 @@
 
         
         app.onUpdate = function(time){
+
+            	//Restarts App
+                app.restart = function(){
+                    //Resets Ball
+                    this.getNode('ball').x = app.width/2;
+                    this.getNode('ball').y = app.height/2;
+                    this.getNode('ball').x += this.getNode('ball').velocityX;
+                    this.getNode('ball').y += this.getNode('ball').velocityY;
+                    this.getNode('ball').speed = 5;
+                    //Restarts Paddles
+                    this.getNode('player1').x = 0;
+                    this.getNode('player1').y = app.height/2-app.width/20;
+                    this.getNode('player2').x = app.width-app.width/40;
+                    this.getNode('player2').y = app.height/2-app.width/20;
+            };
 
             //Paddle Movement 
             document.addEventListener('keydown', (event)=>{
@@ -145,7 +159,7 @@
 
                 let angleRad = (Math.PI/4) * collidePoint;
                 
-                let direction = (this.getNode("ball").x + this.getNode("ball").radius < app.width/2) ? 1 : -1;
+                let direction = (this.getNode("ball").x + this.getNode("ball").width < app.width/2) ? 1 : -1;
                 this.getNode("ball").velocityX = direction * this.getNode("ball").speed * Math.cos(angleRad);
                 this.getNode("ball").velocityY = this.getNode("ball").speed * Math.sin(angleRad);
                 
