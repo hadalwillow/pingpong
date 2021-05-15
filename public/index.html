@@ -82,6 +82,18 @@
         
         app.onUpdate = function(time){
 
+            //Pauses App
+            app.pause = function(){
+                this.getNode('ball').color = "purple";
+                return gamePaused = true;
+            };
+            //Resumes App 
+            app.resume = function() {
+                //Resets Ball
+                this.getNode('ball').color = "green";
+                return gamePaused = false;
+            };
+
             	//Restarts App
                 app.restart = function(){
                     //Resets Ball
