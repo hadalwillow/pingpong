@@ -77,21 +77,34 @@
                 speed:5
             });
 
+
         };
 
         
         app.onUpdate = function(time){
 
+             //Game Pause
+             if (this.getNode('ball').color == "green") { 
+                document.addEventListener('keydown',(event)=>{
+                    if(event.keyCode == '32') {
+                        app.resume();
+                    }
+                })
+            } else if (this.getNode('ball').color == '#05EDFF'|| this.getNode('ball').color == "purple") {
+                    document.addEventListener('keydown',(event)=> {
+                        if(event.keyCode == '32') {
+                            app.pause();
+                    }
+                    })
+            }   
             //Pauses App
             app.pause = function(){
-                this.getNode('ball').color = "purple";
-                return gamePaused = true;
+                this.getNode('ball').color = "green";
             };
             //Resumes App 
             app.resume = function() {
                 //Resets Ball
-                this.getNode('ball').color = "green";
-                return gamePaused = false;
+                this.getNode('ball').color = "purple";
             };
 
             	//Restarts App
@@ -126,20 +139,11 @@
                 
                 }}) 
 
-            //Game Pause
-            var gamePaused = false;
-            document.addEventListener('keydown', (event)=>{
-                if(event.keyCode == '32' && gamePaused) {
-                    app.pause();
-                    gamePaused = false;
-             } else if (event.keyCode == '32' && !gamePaused) {
-                 app.resume();
-                 gamePaused = true;
-             }}) 
-
             //Ball Movement
+            if (this.getNode('ball').color != "green") {
             this.getNode('ball').x += this.getNode('ball').velocityX;
             this.getNode('ball').y += this.getNode('ball').velocityY;
+        }
 
             //Checks to see if the ball has collided with the walls
             if(this.getNode("ball").y + this.getNode("ball").width > app.height || this.getNode("ball").y - this.getNode("ball").width < 0) {
