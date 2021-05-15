@@ -20,8 +20,13 @@
 
         app.onInit = function(){
 
+            //Pauses App
             app.pause = function(){
                 
+            };
+            //Resumes App 
+            app.resume = function() {
+
             };
             //Restarts App
             app.restart = function(){
@@ -96,7 +101,15 @@
                 }}) 
 
             //Game Pause
-            
+            var gamePaused = false;
+            document.addEventListener('keydown', (event)=>{
+                if(event.keyCode == '32' && gamePaused) {
+                    app.pause();
+                    gamePaused = false;
+             } else if (event.keyCode == '32' && !gamePaused) {
+                 app.resume();
+                 gamePaused = true;
+             }}) 
 
             //Ball Movement
             this.getNode('ball').x += this.getNode('ball').velocityX;
