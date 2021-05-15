@@ -21,11 +21,21 @@
         app.onInit = function(){
 
             app.pause = function(){
-
-            };
-
-            app.restart = function(){
                 
+            };
+            //Restarts App
+            app.restart = function(){
+                //Resets Ball
+                this.getNode('ball').x = app.width/2;
+                this.getNode('ball').y = app.height/2;
+                this.getNode('ball').x += this.getNode('ball').velocityX;
+                this.getNode('ball').y += this.getNode('ball').velocityY;
+                this.getNode('ball').speed = 5;
+                //Restarts Paddles
+                this.getNode('player1').x = 0;
+                this.getNode('player1').y = app.height/2-app.width/20;
+                this.getNode('player2').x = app.width-app.width/40;
+                this.getNode('player2').y = app.height/2-app.width/20;
             };
 
             this.nodes.push({
@@ -132,16 +142,10 @@
         //Reset Ball Upon Score
         if( this.getNode("ball").x < 0 ){
             console.log("Point for Player 2!")
-            this.getNode('ball').x = app.width/2;
-            this.getNode('ball').y = app.height/2;
-            this.getNode('ball').velocityX = -this.getNode('ball').velocityX;
-            this.getNode('ball').speed = 5;
+            app.restart();
         }else if( this.getNode('ball').x > app.width){
             console.log("Point for Player 1!")
-            this.getNode('ball').x = app.width/2;
-            this.getNode('ball').y = app.height/2;
-            this.getNode('ball').velocityX = -this.getNode('ball').velocityX;
-            this.getNode('ball').speed = 5;
+            app.restart();
         }
 
     };
