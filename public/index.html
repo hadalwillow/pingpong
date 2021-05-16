@@ -1,46 +1,197 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ping Pong Game</title>
+    <title>Ping Pong Game</title>
 </head>
 <body>
-	<canvas id="canvas" width="800" height="400"></canvas>
-	<script type="text/javascript" src="js/app.js"></script>
-	<script type="text/javascript">
-		//Sample functions, remove these functions and design ping-pong game with onInit and onUpdate.
+    <canvas id="canvas" width="800" height="400"></canvas>
+    <script type="text/javascript" src="js/app.js"></script>
+    <style>
+#canvas {
+    position: fixed; /* absolute */
+    top: 0;
+    left: 0;
+    width: 100vw;    /* 100% */
+    height: 100vh;   /* 100% */
+    background-color: black;
+} 
+    </style>
+    <script type="text/javascript">
 
-		app.onInit = function(){
-			this.nodes.push({
-				id : 'red-box',
-				x  : 100,
-				y  : 0,
-				width  : 100,
-				height : 100,
-				color  : 'red',
-				direction : 0
-			});
+        app.onInit = function(){
 
-			this.nodes.push({
-				id : 'black-box',
-				x  : 50,
-				y  : 0,
-				width  : 150,
-				height : 150,
-				color  : 'black'
-			});
-		};
+            //Pauses App
+            app.pause = function(){
+                
+            };
+            //Resumes App 
+            app.resume = function() {
 
-		app.onUpdate = function(time){
-			this.getNode('black-box').y++;
+            };
+            //Restarts App
+            app.restart = function(){
+                //Resets Ball
+                this.getNode('ball').x = app.width/2;
+                this.getNode('ball').y = app.height/2;
+                this.getNode('ball').x += this.getNode('ball').velocityX;
+                this.getNode('ball').y += this.getNode('ball').velocityY;
+                this.getNode('ball').speed = 5;
+                //Restarts Paddles
+                this.getNode('player1').x = 0;
+                this.getNode('player1').y = app.height/2-app.width/20;
+                this.getNode('player2').x = app.width-app.width/40;
+                this.getNode('player2').y = app.height/2-app.width/20;
+            };
 
-			if(Math.cos(this.timestamp / 100) > 0){
-				this.getNode('red-box').direction = -1;
-			}else{
-				this.getNode('red-box').direction = 1;
-			}
+            this.nodes.push({
+                id : 'player1',
+                x  : 0,
+                y  : app.height/2-app.width/20,
+                width  : app.width/40,
+                height : app.height/3,
+                color  : 'white',
+                direction : 0,
+                velocity: 0.01
+            });
 
-			this.getNode('red-box').x+=this.getNode('red-box').direction;
-		};
-	</script>
+            this.nodes.push({
+                id : 'player2',
+                x  : app.width-app.width/40,
+                y  : app.height/2-app.width/20,
+                width  : app.width/40,
+                height : app.height/3,
+                color  : 'green',
+                direction : 0,
+                velocity: 0.01
+            });
+
+            this.nodes.push ({
+                id:'ball',
+                x: app.width/2,
+                y: app.height/2,
+                width  : app.width/100,
+                height : app.height/50,
+                color: '#05EDFF',
+                velocityX:5,
+                velocityY:5,
+                speed:5
+            });
+
+
+        };
+
+        
+        app.onUpdate = function(time){
+
+             //Game Pause
+             if (this.getNode('ball').color == "green") { 
+                document.addEventListener('keydown',(event)=>{
+                    if(event.keyCode == '32') {
+                        app.resume();
+                    }
+                })
+            } else if (this.getNode('ball').color == '#05EDFF'|| this.getNode('ball').color == "purple") {
+                    document.addEventListener('keydown',(event)=> {
+                        if(event.keyCode == '32') {
+                            app.pause();
+                    }
+                    })
+            }   
+            //Pauses App
+            app.pause = function(){
+                this.getNode('ball').color = "green";
+            };
+            //Resumes App 
+            app.resume = function() {
+                //Resets Ball
+                this.getNode('ball').color = "purple";
+            };
+
+            	//Restarts App
+                app.restart = function(){
+                    //Resets Ball
+                    this.getNode('ball').x = app.width/2;
+                    this.getNode('ball').y = app.height/2;
+                    this.getNode('ball').x += this.getNode('ball').velocityX;
+                    this.getNode('ball').y += this.getNode('ball').velocityY;
+                    this.getNode('ball').speed = 5;
+                    //Restarts Paddles
+                    this.getNode('player1').x = 0;
+                    this.getNode('player1').y = app.height/2-app.width/20;
+                    this.getNode('player2').x = app.width-app.width/40;
+                    this.getNode('player2').y = app.height/2-app.width/20;
+            };
+
+            //Paddle Movement 
+            document.addEventListener('keydown', (event)=>{
+                if(event.keyCode == '87')
+                {
+                    this.getNode('player1').y -= this.getNode('player1').velocity; 
+
+             } else if (event.keyCode == '83'){
+                this.getNode('player1').y += this.getNode('player1').velocity; 
+                
+				} else if (event.keyCode == '38') {
+                    this.getNode('player2').y -= this.getNode('player2').velocity; 
+                
+                } else if (event.keyCode == '40') {
+                this.getNode('player2').y += this.getNode('player2').velocity; 
+                
+                }}) 
+
+            //Ball Movement
+            if (this.getNode('ball').color != "green") {
+            this.getNode('ball').x += this.getNode('ball').velocityX;
+            this.getNode('ball').y += this.getNode('ball').velocityY;
+        }
+
+            //Checks to see if the ball has collided with the walls
+            if(this.getNode("ball").y + this.getNode("ball").width > app.height || this.getNode("ball").y - this.getNode("ball").width < 0) {
+                this.getNode("ball").velocityY = -this.getNode("ball").velocityY;
+            } 
+
+            //Checks to see if the ball has collided with the paddles
+            function collision(b,p){
+                p.top = p.y;
+                p.bottom = p.y + p.height;
+                p.left = p.x;
+                p.right = p.x + p.width;
+                
+                b.top = b.y - b.height;
+                b.bottom = b.y + b.height;
+                b.left = b.x - b.width;
+                b.right = b.x + b.width;
+    
+                return p.left < b.right && p.top < b.bottom && p.right > b.left && p.bottom > b.top;
+            }
+
+            let currentPlayer = (this.getNode("ball").x < app.width/2) ? this.getNode('player1') : this.getNode('player2');
+
+            if (collision(this.getNode("ball"),currentPlayer))   {
+
+                let collidePoint = (this.getNode("ball").y - (currentPlayer.y + currentPlayer.height/2));
+
+                collidePoint = collidePoint / (currentPlayer.height/2);
+
+                let angleRad = (Math.PI/4) * collidePoint;
+                
+                let direction = (this.getNode("ball").x + this.getNode("ball").width < app.width/2) ? 1 : -1;
+                this.getNode("ball").velocityX = direction * this.getNode("ball").speed * Math.cos(angleRad);
+                this.getNode("ball").velocityY = this.getNode("ball").speed * Math.sin(angleRad);
+                
+                this.getNode("ball").speed += 0.1;
+    }
+
+        //Reset Ball Upon Score
+        if( this.getNode("ball").x < 0 ){
+            console.log("Point for Player 2!")
+            app.restart();
+        }else if( this.getNode('ball').x > app.width){
+            console.log("Point for Player 1!")
+            app.restart();
+        }
+
+    };
+    </script>
 </body>
 </html>
